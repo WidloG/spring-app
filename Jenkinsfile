@@ -19,10 +19,12 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                script{
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
                                          def appImage = docker.build('widlog/spring-app')
                                          appImage.push()
-                                     }
+                    }
+                }
             }
         }
     }
